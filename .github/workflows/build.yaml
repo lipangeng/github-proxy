@@ -30,7 +30,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: docker metadata
         id: meta
-        uses: https://gitee.com/gh_actions/docker.metadata-action.git@v5
+        uses: docker/metadata-action@v5
         with:
           images: lipangeng/github-proxy,lipg/github-proxy
       - name: docker login
