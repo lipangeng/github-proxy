@@ -55,10 +55,8 @@ func handler(w http.ResponseWriter, req *http.Request) {
 				u = "https://github.com/" + u
 			}
 		}
-	} else {
-		if !strings.HasPrefix(u, "http") {
-			u = "https://" + u
-		}
+	} else if !strings.HasPrefix(u, "http") {
+		u = "https://" + u
 	}
 
 	fmt.Println("Received URL:", u)
