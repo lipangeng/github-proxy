@@ -44,8 +44,8 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 	// 不满足要求的URL不会进行处理
 	if !matchUrl(u) {
-		proxyUrl, _ := url.Parse(AssetUrl)
 		if req.URL.Path == "/" {
+			proxyUrl, _ := url.Parse(AssetUrl)
 			// 转发请求, 获取文件
 			proxy(w, &http.Request{
 				Method: req.Method,
