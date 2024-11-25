@@ -10,6 +10,7 @@ import (
 )
 
 var (
+	AssetUrl     = "https://hunshcn.github.io/gh-proxy/"
 	urlFix       = regexp.MustCompile(`^(https?:/)`)
 	urlMatcher01 = regexp.MustCompile(`^(?:(?:https?://)?github\.com/)?[^/]+?/[^/]+?/(?:releases|archive)/.*$`)
 	urlMatcher02 = regexp.MustCompile(`^(?:(?:https?://)?github\.com/)?[^/]+?/[^/]+?/(?:blob|raw)/.*$`)
@@ -43,6 +44,17 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 	// 不满足要求的URL不会进行处理
 	if !matchUrl(u) {
+		proxyUrl, _ := url.Parse(AssetUrl)
+		if req.URL.Path == "/" {
+			// 转发请求, 获取文件
+			proxy(w, &http.Request{
+				Method: req.Method,
+				URL:    proxyUrl,
+				Header: req.Header,
+				Body:   req.Body,
+			})
+			return
+		}
 		w.WriteHeader(http.StatusForbidden)
 	}
 
