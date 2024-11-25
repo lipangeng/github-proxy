@@ -48,10 +48,8 @@ func handler(w http.ResponseWriter, req *http.Request) {
 			proxyUrl, _ := url.Parse(AssetUrl)
 			// 转发请求, 获取文件
 			proxy(w, &http.Request{
-				Method: req.Method,
+				Method: "GET",
 				URL:    proxyUrl,
-				Header: req.Header,
-				Body:   req.Body,
 			})
 			return
 		}
